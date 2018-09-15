@@ -1,14 +1,38 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 
+"""New stuff """
+from django.views.generic import TemplateView
+from polls.forms import QuestionForm
+
+
 from .models import Choice, Question
 
 # Create your views here.
+class QuestionView(TemplateView):
+    template_name = 'polls/question.html'
+
+    def get(self, request):
+        form = QuestionForm()
+        return render(request, self.template_name, {'form':form})
+
+    def post(self, request):
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            question = form.save(commit=false)
+            text = form.cleaned_data['question']
+            form = QuestionForm()
+            #return redirect('polls:polls')
+        args = {'form':form, 'text': text}
+        return render(request, self.template_name, args)
+  
+
+
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'

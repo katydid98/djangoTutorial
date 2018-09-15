@@ -1,4 +1,4 @@
-{% load static %}
+<!-- {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
 
@@ -11,4 +11,23 @@
     </ul>
 {% else %}
     <p>No polls are available.</p>
-{% endif %}
+{% endif %} -->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Polls Webpage</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
+</head>
+<body>
+	<h1><small>Polls Webpage by Katie Nguyen</small></h1>
+	<form action ="{% url 'polls:' question.id %}" method = POST>
+		{% csrf_token %}
+		<div>
+			<label>Please enter a Question: </label>
+			<input type="text" name="question">
+		</div>
+	</form>
+</body>
+</html>

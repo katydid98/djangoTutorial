@@ -1,0 +1,14 @@
+
+{% block body %}
+<div>
+	<h1>Polls HomePage</h1>
+	<form method= "post">
+		<label>Please enter a Question: </label>
+
+		{% csrf_token%}
+		{{ form.as_p}}
+		<button type="submit"> Submit</button>
+	</form>
+	
+</div>
+{%endblock%}
